@@ -13,8 +13,6 @@ int main() {
     // Tableros para el juego
     char tableroJuegoJ1[tamTablero][tamTablero];
     char tableroJuegoJ2[tamTablero][tamTablero];
-    // Tablero para hacer comprobación de casillas
-	bool tableroFalse[tamTablero][tamTablero];
     
     // Caracteres
     const char caracterInicial = '~';
@@ -34,7 +32,6 @@ int main() {
             tableroControlBarcosJ2[f][c] = false;
             tableroJuegoJ1[f][c] = caracterInicial;
             tableroJuegoJ2[f][c] = caracterInicial;
-			tableroFalse[f][c] = false;
         }
     }
 
@@ -441,10 +438,6 @@ int main() {
     {
         // Juego
 
-        // Definimos el gameOver de cada jugador en false, para compobar cuando sea true y verificar que se ha terminado el juego
-        bool gameOverJ1 = false; 
-        bool gameOverJ2 = false;
-
         // Turno del Jugador 1
         std::cout << "\n" << "Turno del Jugador 1" << std::endl;
 
@@ -508,15 +501,17 @@ int main() {
             }
 
             if (!J2HaPerdido) {
+				turno = false;
+                disparoValido = false;
                 break;
             }
             if (J2HaPerdido) {                    //GAME OVER
                 system("cls");
-                std::cout << "GAME OVER JUGADOR 2";
+                std::cout << "JUGADOR 1 GANADOR";
                 juegoActivo = false;
                 break;
             }
-
+         
         }
 
         // Turno del Jugador 2
@@ -582,14 +577,16 @@ int main() {
             }
 
             if (!J1HaPerdido) {
+				turno = true;
+				disparoValido = false;
                 break;
             }
             if (J1HaPerdido) {                    //GAME OVER
                 system("cls");
-                std::cout << "GAME OVER JUGADOR 1";
+                std::cout << "JUGADOR 2 GANADOR";
                 juegoActivo = false;
 				break;
-            }
+            }        
             
         }
 
