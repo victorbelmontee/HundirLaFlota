@@ -489,28 +489,38 @@ int main() {
             std::cout << std::endl;
         }
 
-        // Comprobar si el Jugador 2 ha perdido
+		// Comprobar si el Jugador 2 ha perdido sumando todos los valores del tablero de control de barcos del jugador 2
+        bool sumaJ2 = true;
         bool J2HaPerdido = true;
         for (int f = 0; f < tamTablero; f++) {
             for (int c = 0; c < tamTablero; c++) {
                 if (tableroControlBarcosJ2[f][c] == true)
                 {
-                    J2HaPerdido = false;
-                    break;
-                }
-            }
+                    sumaJ2 += tableroControlBarcosJ1[f][c];
 
-            if (!J2HaPerdido) {
-				turno = false;
-                disparoValido = false;
-                break;
-            }
-            if (J2HaPerdido) {                    //GAME OVER
-                system("cls");
-                std::cout << "JUGADOR 1 GANADOR";
-                juegoActivo = false;
-                break;
-            }
+                    if (sumaJ2 == 0)
+                    {
+                        J2HaPerdido = true;
+                        break;
+                    }
+                    else
+                    {
+                        J2HaPerdido = false;
+                    }
+
+                    if (!J2HaPerdido) {
+                        turno = true;
+                        disparoValido = false;
+                        break;
+                    }
+                    if (J2HaPerdido) {                    //GAME OVER
+                        system("cls");
+                        std::cout << "JUGADOR 1 GANADOR";
+                        juegoActivo = false;
+                        break;
+                    }
+                }
+            }     
          
         }
 
@@ -565,30 +575,41 @@ int main() {
 
         }
 
-        // Comprobar si el Jugador 1 ha perdido
-        bool J1HaPerdido = true;
+		// Comprobar si el Jugador 1 ha perdido sumando todos los valores del tablero de control de barcos del jugador 1
+        bool sumaJ1 = true;
+		bool J1HaPerdido = false;
         for (int f = 0; f < tamTablero; f++) {
             for (int c = 0; c < tamTablero; c++) {
                 if (tableroControlBarcosJ1[f][c] == true) 
                 {
-                    J1HaPerdido = false;
-                    break;
+					sumaJ1 += tableroControlBarcosJ1[f][c];
+
+                    if (sumaJ1 == 0)
+                    {
+						J1HaPerdido = true;
+                        break;
+                    }
+                    else
+                    {
+						J1HaPerdido = false;
+                    }
+
+                    if (!J1HaPerdido) {
+                        turno = false;
+                        disparoValido = false;
+                        break;
+                    }
+                    if (J1HaPerdido) {                    //GAME OVER
+                        system("cls");
+                        std::cout << "JUGADOR 2 GANADOR";
+                        juegoActivo = false;
+                        break;
+                    }
                 }
             }
 
-            if (!J1HaPerdido) {
-				turno = true;
-				disparoValido = false;
-                break;
-            }
-            if (J1HaPerdido) {                    //GAME OVER
-                system("cls");
-                std::cout << "JUGADOR 2 GANADOR";
-                juegoActivo = false;
-				break;
-            }        
+    
             
         }
-
     }
 }
