@@ -490,7 +490,7 @@ int main() {
         }
 
 		// Comprobar si el Jugador 2 ha perdido sumando todos los valores del tablero de control de barcos del jugador 2
-        bool sumaJ2 = true;
+        int sumaJ2 = true;
         bool J2HaPerdido = true;
         for (int f = 0; f < tamTablero; f++) {
             for (int c = 0; c < tamTablero; c++) {
@@ -576,7 +576,7 @@ int main() {
         }
 
 		// Comprobar si el Jugador 1 ha perdido sumando todos los valores del tablero de control de barcos del jugador 1
-        bool sumaJ1 = true;
+        int sumaJ1 = true;
 		bool J1HaPerdido = false;
         for (int f = 0; f < tamTablero; f++) {
             for (int c = 0; c < tamTablero; c++) {
