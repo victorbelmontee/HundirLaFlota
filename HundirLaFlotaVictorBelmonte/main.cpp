@@ -13,6 +13,9 @@ int main() {
     // Tableros para el juego
     char tableroJuegoJ1[tamTablero][tamTablero];
     char tableroJuegoJ2[tamTablero][tamTablero];
+    // Arrays colocacion barcos
+	const unsigned short tamBarcos[4] = { 3, 4, 5, 6 };
+    const char caracteresBarcos[4] = { '3', '4', '5', '6' };
     
     // Caracteres
     const char caracterInicial = '~';
@@ -65,174 +68,89 @@ int main() {
     system("cls");
 
     // Colocar barcos para el Jugador 1
-    // Barco de 3 casillas
-    bool barcoColocadoTresJ1 = false;
-    while (!barcoColocadoTresJ1) {
-        bool horizontal = rand() % 2; // 0 = vertical, 1 = horizontal
-        unsigned short fila;
-        unsigned short columna;
-        bool espacioLibre = true;
-        if (horizontal) {
-            fila = rand() % tamTablero;
-            columna = rand() % (tamTablero - 3 + 1);
-            for (short i = 0; i < 3; i++) {
-                if (tableroControlBarcosJ1[fila][columna + i]) {
-                    espacioLibre = false;
-                    break;
+    for (int b = 0; b < 4; b++) { // Iterar sobre los tamaños de los barcos
+        bool barcoColocado = false;
+        while (!barcoColocado) {
+            bool horizontal = rand() % 2; // 0 = vertical, 1 = horizontal
+            unsigned short fila, columna;
+            bool espacioLibre = true;
+            if (horizontal) {
+                fila = rand() % tamTablero;
+                columna = rand() % (tamTablero - tamBarcos[b] + 1);
+                for (int i = 0; i < tamBarcos[b]; i++) {
+                    if (tableroControlBarcosJ1[fila][columna + i]) {
+                        espacioLibre = false;
+                        break;
+                    }
+                }
+                if (espacioLibre) {
+                    for (int i = 0; i < tamBarcos[b]; i++) {
+                        tableroVisibleJ1[fila][columna + i] = caracteresBarcos[b];
+                        tableroControlBarcosJ1[fila][columna + i] = true;
+                    }
+                    barcoColocado = true;
                 }
             }
-            if (espacioLibre) {
-                for (int i = 0; i < 3; i++) {
-                    tableroVisibleJ1[fila][columna + i] = barcoTres;
-                    tableroControlBarcosJ1[fila][columna + i] = true;
+            else {
+                fila = rand() % (tamTablero - tamBarcos[b] + 1);
+                columna = rand() % tamTablero;
+                for (int i = 0; i < tamBarcos[b]; i++) {
+                    if (tableroControlBarcosJ1[fila + i][columna]) {
+                        espacioLibre = false;
+                        break;
+                    }
                 }
-                barcoColocadoTresJ1 = true;
-            }
-        }
-        else {
-            fila = rand() % (tamTablero - 3 + 1);
-            columna = rand() % tamTablero;
-            for (short i = 0; i < 3; i++) {
-                if (tableroControlBarcosJ1[fila + i][columna]) {
-                    espacioLibre = false;
-                    break;
+                if (espacioLibre) {
+                    for (int i = 0; i < tamBarcos[b]; i++) {
+                        tableroVisibleJ1[fila + i][columna] = caracteresBarcos[b];
+                        tableroControlBarcosJ1[fila + i][columna] = true;
+                    }
+                    barcoColocado = true;
                 }
-            }
-            if (espacioLibre) {
-                for (short i = 0; i < 3; i++) {
-                    tableroVisibleJ1[fila + i][columna] = barcoTres;
-                    tableroControlBarcosJ1[fila + i][columna] = true;
-                }
-                barcoColocadoTresJ1 = true;
-            }
-        }
-    }
-
-    // Barco de 4 casillas
-    bool BarcoColocadoCuatroJ1 = false;
-    while (!BarcoColocadoCuatroJ1) {
-        bool horizontal = rand() % 2;
-        unsigned short fila;
-        unsigned short columna;
-        bool espacioLibre = true;
-        if (horizontal) {
-            fila = rand() % tamTablero;
-            columna = rand() % (tamTablero - 4 + 1);
-            for (short i = 0; i < 4; i++) {
-                if (tableroControlBarcosJ1[fila][columna + i]) {
-                    espacioLibre = false;
-                    break;
-                }
-            }
-            if (espacioLibre) {
-                for (short i = 0; i < 4; i++) {
-                    tableroVisibleJ1[fila][columna + i] = barcoCuatro;
-                    tableroControlBarcosJ1[fila][columna + i] = true;
-                }
-                BarcoColocadoCuatroJ1 = true;
-            }
-        }
-        else {
-            fila = rand() % (tamTablero - 4 + 1);
-            columna = rand() % tamTablero;
-            for (short i = 0; i < 4; i++) {
-                if (tableroControlBarcosJ1[fila + i][columna]) {
-                    espacioLibre = false;
-                    break;
-                }
-            }
-            if (espacioLibre) {
-                for (short i = 0; i < 4; i++) {
-                    tableroVisibleJ1[fila + i][columna] = barcoCuatro;
-                    tableroControlBarcosJ1[fila + i][columna] = true;
-                }
-                BarcoColocadoCuatroJ1 = true;
             }
         }
     }
 
-    // Barco de 5 casillas
-    bool BarcoColocadoCincoJ1 = false;
-    while (!BarcoColocadoCincoJ1) {
-        bool horizontal = rand() % 2;
-        unsigned short fila;
-        unsigned short columna;
-        bool espacioLibre = true;
-        if (horizontal) {
-            fila = rand() % tamTablero;
-            columna = rand() % (tamTablero - 5 + 1);
-            for (short i = 0; i < 5; i++) {
-                if (tableroControlBarcosJ1[fila][columna + i]) {
-                    espacioLibre = false;
-                    break;
+    // Colocar barcos para el Jugador 2
+    for (int b = 0; b < 4; b++) { // Iterar sobre los tamaños de los barcos
+        bool barcoColocado = false;
+        while (!barcoColocado) {
+            bool horizontal = rand() % 2; // 0 = vertical, 1 = horizontal
+            unsigned short fila, columna;
+            bool espacioLibre = true;
+            if (horizontal) {
+                fila = rand() % tamTablero;
+                columna = rand() % (tamTablero - tamBarcos[b] + 1);
+                for (int i = 0; i < tamBarcos[b]; i++) {
+                    if (tableroControlBarcosJ2[fila][columna + i]) {
+                        espacioLibre = false;
+                        break;
+                    }
+                }
+                if (espacioLibre) {
+                    for (int i = 0; i < tamBarcos[b]; i++) {
+                        tableroVisibleJ2[fila][columna + i] = caracteresBarcos[b];
+                        tableroControlBarcosJ2[fila][columna + i] = true;
+                    }
+                    barcoColocado = true;
                 }
             }
-            if (espacioLibre) {
-                for (short i = 0; i < 5; i++) {
-                    tableroVisibleJ1[fila][columna + i] = barcoCinco;
-                    tableroControlBarcosJ1[fila][columna + i] = true;
+            else {
+                fila = rand() % (tamTablero - tamBarcos[b] + 1);
+                columna = rand() % tamTablero;
+                for (int i = 0; i < tamBarcos[b]; i++) {
+                    if (tableroControlBarcosJ2[fila + i][columna]) {
+                        espacioLibre = false;
+                        break;
+                    }
                 }
-                BarcoColocadoCincoJ1 = true;
-            }
-        }
-        else {
-            fila = rand() % (tamTablero - 5 + 1);
-            columna = rand() % tamTablero;
-            for (short i = 0; i < 5; i++) {
-                if (tableroControlBarcosJ1[fila + i][columna]) {
-                    espacioLibre = false;
-                    break;
+                if (espacioLibre) {
+                    for (int i = 0; i < tamBarcos[b]; i++) {
+                        tableroVisibleJ2[fila + i][columna] = caracteresBarcos[b];
+                        tableroControlBarcosJ2[fila + i][columna] = true;
+                    }
+                    barcoColocado = true;
                 }
-            }
-            if (espacioLibre) {
-                for (short i = 0; i < 5; i++) {
-                    tableroVisibleJ1[fila + i][columna] = barcoCinco;
-                    tableroControlBarcosJ1[fila + i][columna] = true;
-                }
-                BarcoColocadoCincoJ1 = true;
-            }
-        }
-    }
-
-    // Barco de 6 casillas
-    bool BarcoColocadoSeisJ1 = false;
-    while (!BarcoColocadoSeisJ1) {
-        bool horizontal = rand() % 2;
-        unsigned short fila;
-        unsigned short columna;
-        bool espacioLibre = true;
-        if (horizontal) {
-            fila = rand() % tamTablero;
-            columna = rand() % (tamTablero - 6 + 1);
-            for (short i = 0; i < 6; i++) {
-                if (tableroControlBarcosJ1[fila][columna + i]) {
-                    espacioLibre = false;
-                    break;
-                }
-            }
-            if (espacioLibre) {
-                for (short i = 0; i < 6; i++) {
-                    tableroVisibleJ1[fila][columna + i] = barcoSeis;
-                    tableroControlBarcosJ1[fila][columna + i] = true;
-                }
-                BarcoColocadoSeisJ1 = true;
-            }
-        }
-        else {
-            fila = rand() % (tamTablero - 6 + 1);
-            columna = rand() % tamTablero;
-            for (short i = 0; i < 6; i++) {
-                if (tableroControlBarcosJ1[fila + i][columna]) {
-                    espacioLibre = false;
-                    break;
-                }
-            }
-            if (espacioLibre) {
-                for (short i = 0; i < 6; i++) {
-                    tableroVisibleJ1[fila + i][columna] = barcoSeis;
-                    tableroControlBarcosJ1[fila + i][columna] = true;
-                }
-                BarcoColocadoSeisJ1 = true;
             }
         }
     }
@@ -248,179 +166,6 @@ int main() {
 
     std::cout << "\n";
 
-    // Repetir el mismo proceso para el Jugador 2
-    // Barco de 3 casillas
-    bool BarcoColocadoTresJ2 = false;
-    while (!BarcoColocadoTresJ2) {
-        bool horizontal = rand() % 2;
-        unsigned short fila;
-        unsigned short columna;
-        bool espacioLibre = true;
-        if (horizontal) {
-            fila = rand() % tamTablero;
-            columna = rand() % (tamTablero - 3 + 1);
-            for (short i = 0; i < 3; i++) {
-                if (tableroControlBarcosJ2[fila][columna + i]) {
-                    espacioLibre = false;
-                    break;
-                }
-            }
-            if (espacioLibre) {
-                for (int i = 0; i < 3; i++) {
-                    tableroVisibleJ2[fila][columna + i] = barcoTres;
-                    tableroControlBarcosJ2[fila][columna + i] = true;
-                }
-                BarcoColocadoTresJ2 = true;
-            }
-        }
-        else {
-            fila = rand() % (tamTablero - 3 + 1);
-            columna = rand() % tamTablero;
-            for (short i = 0; i < 3; i++) {
-                if (tableroControlBarcosJ2[fila + i][columna]) {
-                    espacioLibre = false;
-                    break;
-                }
-            }
-            if (espacioLibre) {
-                for (short i = 0; i < 3; i++) {
-                    tableroVisibleJ2[fila + i][columna] = barcoTres;
-                    tableroControlBarcosJ2[fila + i][columna] = true;
-                }
-                BarcoColocadoTresJ2 = true;
-            }
-        }
-    }
-
-    // Barco de 4 casillas
-    bool BarcoColocadoCuatroJ2 = false;
-    while (!BarcoColocadoCuatroJ2) {
-        bool horizontal = rand() % 2;
-        unsigned short fila;
-        unsigned short columna;
-        bool espacioLibre = true;
-        if (horizontal) {
-            fila = rand() % tamTablero;
-            columna = rand() % (tamTablero - 4 + 1);
-            for (short i = 0; i < 4; i++) {
-                if (tableroControlBarcosJ2[fila][columna + i]) {
-                    espacioLibre = false;
-                    break;
-                }
-            }
-            if (espacioLibre) {
-                for (short i = 0; i < 4; i++) {
-                    tableroVisibleJ2[fila][columna + i] = barcoCuatro;
-                    tableroControlBarcosJ2[fila][columna + i] = true;
-                }
-                BarcoColocadoCuatroJ2 = true;
-            }
-        }
-        else {
-            fila = rand() % (tamTablero - 4 + 1);
-            columna = rand() % tamTablero;
-            for (short i = 0; i < 4; i++) {
-                if (tableroControlBarcosJ2[fila + i][columna]) {
-                    espacioLibre = false;
-                    break;
-                }
-            }
-            if (espacioLibre) {
-                for (short i = 0; i < 4; i++) {
-                    tableroVisibleJ2[fila + i][columna] = barcoCuatro;
-                    tableroControlBarcosJ2[fila + i][columna] = true;
-                }
-                BarcoColocadoCuatroJ2 = true;
-            }
-        }
-    }
-
-    // Barco de 5 casillas
-    bool BarcoColocadoCincoJ2 = false;
-    while (!BarcoColocadoCincoJ2) {
-        bool horizontal = rand() % 2;
-        unsigned short fila;
-        unsigned short columna;
-        bool espacioLibre = true;
-        if (horizontal) {
-            fila = rand() % tamTablero;
-            columna = rand() % (tamTablero - 5 + 1);
-            for (short i = 0; i < 5; i++) {
-                if (tableroControlBarcosJ2[fila][columna + i]) {
-                    espacioLibre = false;
-                    break;
-                }
-            }
-            if (espacioLibre) {
-                for (short i = 0; i < 5; i++) {
-                    tableroVisibleJ2[fila][columna + i] = barcoCinco;
-                    tableroControlBarcosJ2[fila][columna + i] = true;
-                }
-                BarcoColocadoCincoJ2 = true;
-            }
-        }
-        else {
-            fila = rand() % (tamTablero - 5 + 1);
-            columna = rand() % tamTablero;
-            for (short i = 0; i < 5; i++) {
-                if (tableroControlBarcosJ2[fila + i][columna]) {
-                    espacioLibre = false;
-                    break;
-                }
-            }
-            if (espacioLibre) {
-                for (short i = 0; i < 5; i++) {
-                    tableroVisibleJ2[fila + i][columna] = barcoCinco;
-                    tableroControlBarcosJ2[fila + i][columna] = true;
-                }
-                BarcoColocadoCincoJ2 = true;
-            }
-        }
-    }
-
-    // Barco de 6 casillas
-    bool BarcoColocadoSeisJ2 = false;
-    while (!BarcoColocadoSeisJ2) {
-        bool horizontal = rand() % 2;
-        unsigned short fila;
-        unsigned short columna;
-        bool espacioLibre = true;
-        if (horizontal) {
-            fila = rand() % tamTablero;
-            columna = rand() % (tamTablero - 6 + 1);
-            for (short i = 0; i < 6; i++) {
-                if (tableroControlBarcosJ2[fila][columna + i]) {
-                    espacioLibre = false;
-                    break;
-                }
-            }
-            if (espacioLibre) {
-                for (short i = 0; i < 6; i++) {
-                    tableroVisibleJ2[fila][columna + i] = barcoSeis;
-                    tableroControlBarcosJ2[fila][columna + i] = true;
-                }
-                BarcoColocadoSeisJ2 = true;
-            }
-        }
-        else {
-            fila = rand() % (tamTablero - 6 + 1);
-            columna = rand() % tamTablero;
-            for (short i = 0; i < 6; i++) {
-                if (tableroControlBarcosJ2[fila + i][columna]) {
-                    espacioLibre = false;
-                    break;
-                }
-            }
-            if (espacioLibre) {
-                for (short i = 0; i < 6; i++) {
-                    tableroVisibleJ2[fila + i][columna] = barcoSeis;
-                    tableroControlBarcosJ2[fila + i][columna] = true;
-                }
-                BarcoColocadoSeisJ2 = true;
-            }
-        }
-    }
-
     // Imprimir Tablero del Jugador 2
     std::cout << "Tablero Jugador 2" << std::endl;
     for (int f = 0; f < tamTablero; f++) {
@@ -429,6 +174,7 @@ int main() {
         }
         std::cout << std::endl;
     }
+
     std::cout << "\n" << "Para continuar con el juego pulsa ENTER...!" << std::endl;
     std::cin.ignore();
     system("cls");
@@ -604,9 +350,6 @@ int main() {
 
                 }
             }
-
-    
-            
         }
 
         if (J1HaPerdido) {                    //GAME OVER
