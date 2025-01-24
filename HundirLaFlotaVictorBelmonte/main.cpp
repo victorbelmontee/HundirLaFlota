@@ -513,15 +513,17 @@ int main() {
                         disparoValido = false;
                         break;
                     }
-                    if (J2HaPerdido) {                    //GAME OVER
-                        system("cls");
-                        std::cout << "JUGADOR 1 GANADOR";
-                        juegoActivo = false;
-                        break;
-                    }
+
                 }
             }     
          
+        }
+
+        if (J2HaPerdido) {                    //GAME OVER
+            system("cls");
+            std::cout << "JUGADOR 1 GANADOR";
+            juegoActivo = false;
+            break;
         }
 
         // Turno del Jugador 2
@@ -599,17 +601,19 @@ int main() {
                         disparoValido = false;
                         break;
                     }
-                    if (J1HaPerdido) {                    //GAME OVER
-                        system("cls");
-                        std::cout << "JUGADOR 2 GANADOR";
-                        juegoActivo = false;
-                        break;
-                    }
+
                 }
             }
 
     
             
+        }
+
+        if (J1HaPerdido) {                    //GAME OVER
+            system("cls");
+            std::cout << "JUGADOR 2 GANADOR";
+            juegoActivo = false;
+            break;
         }
     }
 }
