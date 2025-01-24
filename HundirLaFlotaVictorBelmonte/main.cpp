@@ -603,10 +603,7 @@ int main() {
                     }
 
                 }
-            }
-
-    
-            
+            }            
         }
 
         if (J1HaPerdido) {                    //GAME OVER
