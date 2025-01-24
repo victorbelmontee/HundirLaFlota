@@ -19,10 +19,6 @@ int main() {
     
     // Caracteres
     const char caracterInicial = '~';
-    const char barcoTres = '3';
-    const char barcoCuatro = '4';
-    const char barcoCinco = '5';
-    const char barcoSeis = '6';
 	const char tocado = 'O';
 	const char agua = 'X';
 
@@ -154,6 +150,9 @@ int main() {
             }
         }
     }
+    
+
+    bool tablerosImpresos = false;
 
     // Imprimir Tablero del Jugador 1
     std::cout << "Tablero Jugador 1" << std::endl;
@@ -265,7 +264,8 @@ int main() {
          
         }
 
-        if (J2HaPerdido) {                    //GAME OVER
+        if (J2HaPerdido)  //GAME OVER
+        {    
             system("cls");
             std::cout << "JUGADOR 1 GANADOR";
             juegoActivo = false;
@@ -352,7 +352,8 @@ int main() {
             }
         }
 
-        if (J1HaPerdido) {                    //GAME OVER
+        if (J1HaPerdido) //GAME OVER M
+        {                    
             system("cls");
             std::cout << "JUGADOR 2 GANADOR";
             juegoActivo = false;
