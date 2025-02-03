@@ -11,8 +11,8 @@ int main() {
     bool tableroControlBarcosJ1[tamTablero][tamTablero];
     bool tableroControlBarcosJ2[tamTablero][tamTablero];
     // Tableros para el juego
-    char tableroJuegoJ1[tamTablero][tamTablero];
-    char tableroJuegoJ2[tamTablero][tamTablero];
+    char tableroJuegoJ1[tamTablero][tamTablero]; // ELIMINARLOS, IR COMPROBANDO DONDE HAYA UN NUMERO PONER UNA ~
+    char tableroJuegoJ2[tamTablero][tamTablero]; // ELIMINARLOS,IR COMPROBANDO DONDE HAYA UN NUMERO PONER UNA ~
     // Arrays colocacion barcos
 	const unsigned short tamBarcos[4] = { 3, 4, 5, 6 };
     const char caracteresBarcos[4] = { '3', '4', '5', '6' };
@@ -21,6 +21,7 @@ int main() {
     const char caracterInicial = '~';
 	const char tocado = 'O';
 	const char agua = 'X';
+	const unsigned short barcosAColocar = 4;
 
     // Inicializar los tableros
     for (int f = 0; f < tamTablero; f++) {
@@ -64,11 +65,12 @@ int main() {
     system("cls");
 
     // Colocar barcos para el Jugador 1
-    for (int b = 0; b < 4; b++) { // Iterar sobre los tamaños de los barcos
+    for (int b = 0; b < barcosAColocar; b++) { // Iterar sobre los tamaños de los barcos
         bool barcoColocado = false;
         while (!barcoColocado) {
             bool horizontal = rand() % 2; // 0 = vertical, 1 = horizontal
-            unsigned short fila, columna;
+            unsigned short fila;
+            unsigned short columna;
             bool espacioLibre = true;
             if (horizontal) {
                 fila = rand() % tamTablero;
@@ -108,7 +110,7 @@ int main() {
     }
 
     // Colocar barcos para el Jugador 2
-    for (int b = 0; b < 4; b++) { // Iterar sobre los tamaños de los barcos
+    for (int b = 0; b < barcosAColocar; b++) { // Iterar sobre los tamaños de los barcos
         bool barcoColocado = false;
         while (!barcoColocado) {
             bool horizontal = rand() % 2; // 0 = vertical, 1 = horizontal
@@ -352,7 +354,7 @@ int main() {
             }
         }
 
-        if (J1HaPerdido) //GAME OVER M
+        if (J1HaPerdido) //GAME OVER 
         {                    
             system("cls");
             std::cout << "JUGADOR 2 GANADOR";
