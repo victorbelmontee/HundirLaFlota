@@ -5,13 +5,13 @@
 int main() {
     // Inicializar Tableros
     const unsigned short tamTablero = 10;
-    // Creamos dos tableros, para que vean donde se encuntra cada barco de cada jugador
+    // Creamos dos tableros, para que vean donde se encuentra cada barco de cada jugador
     char tableroVisibleJ1[tamTablero][tamTablero];
     char tableroVisibleJ2[tamTablero][tamTablero];
     // Tableros para controlar la ubicación de los barcos
     bool tableroControlBarcosJ1[tamTablero][tamTablero];
     bool tableroControlBarcosJ2[tamTablero][tamTablero];
-    // Arrays colocacion barcos
+    // Arrays colocación barcos
     const unsigned short tamBarcos[4] = { 3, 4, 5, 6 };
     const char caracteresBarcos[4] = { '3', '4', '5', '6' };
 
@@ -81,7 +81,7 @@ int main() {
             if (horizontal) 
             {
                 fila = rand() % tamTablero;
-                columna = rand() % (tamTablero - tamBarcos[b] + 1);
+                columna = rand() % (tamTablero - tamBarcos[b] + 1); // Con el +1 nos aseguramos que el barco cabe horizontalmente
                 for (int i = 0; i < tamBarcos[b]; i++) 
                 {
                     if (tableroControlBarcosJ1[fila][columna + i]) 
@@ -103,7 +103,7 @@ int main() {
 
             else 
             {
-                fila = rand() % (tamTablero - tamBarcos[b] + 1);
+                fila = rand() % (tamTablero - tamBarcos[b] + 1); // Con el +1 nos aseguramos que el barco cabe verticalmente
                 columna = rand() % tamTablero;
 
                 for (int i = 0; i < tamBarcos[b]; i++) 
@@ -141,7 +141,7 @@ int main() {
             if (horizontal) 
             {
                 fila = rand() % tamTablero;
-                columna = rand() % (tamTablero - tamBarcos[b] + 1);
+                columna = rand() % (tamTablero - tamBarcos[b] + 1); // Con el +1 nos aseguramos que el barco cabe horizontalmente
 
                 for (int i = 0; i < tamBarcos[b]; i++) {
                     if (tableroControlBarcosJ2[fila][columna + i]) 
@@ -163,7 +163,7 @@ int main() {
 
             else 
             {
-                fila = rand() % (tamTablero - tamBarcos[b] + 1);
+                fila = rand() % (tamTablero - tamBarcos[b] + 1); // Con el +1 nos aseguramos que el barco cabe verticalmente
                 columna = rand() % tamTablero;
 
                 for (int i = 0; i < tamBarcos[b]; i++) 
