@@ -5,10 +5,10 @@
 int main() {
     // Inicializar Tableros
     const unsigned short tamTablero = 10;
-    // Creamos dos tableros, para que vean donde se encuentra cada barco de cada jugador
+    // Creamos dos tableros, para que vean donde se encuentra cada barco de cada jugador, sirven para que el jugador vea el juego.
     char tableroVisibleJ1[tamTablero][tamTablero];
     char tableroVisibleJ2[tamTablero][tamTablero];
-    // Tableros para controlar la ubicación de los barcos
+    // Tableros para controlar la ubicación de los barcos internamente
     bool tableroControlBarcosJ1[tamTablero][tamTablero];
     bool tableroControlBarcosJ2[tamTablero][tamTablero];
     // Arrays colocación barcos
@@ -334,7 +334,7 @@ int main() {
             }
         }
 
-        if (J2HaPerdido)  //GAME OVER
+        if (J2HaPerdido)  //GAME OVER J2
         {
             system("cls");
             std::cout << "JUGADOR 1 GANADOR";
@@ -431,7 +431,7 @@ int main() {
             }
         }
 
-        if (J1HaPerdido) //GAME OVER 
+        if (J1HaPerdido) //GAME OVER J1
         {
             system("cls");
             std::cout << "JUGADOR 2 GANADOR";
