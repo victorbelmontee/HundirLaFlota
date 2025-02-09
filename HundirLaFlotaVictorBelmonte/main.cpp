@@ -1,5 +1,6 @@
-    #include <iostream>
-    #include <ctime>
+#include <iostream>
+#include <ctime>
+#include <chrono>
 
 int main() {
     // Inicializar Tableros
@@ -10,37 +11,37 @@ int main() {
     // Tableros para controlar la ubicación de los barcos
     bool tableroControlBarcosJ1[tamTablero][tamTablero];
     bool tableroControlBarcosJ2[tamTablero][tamTablero];
-    // Tableros para el juego
-    char tableroJuegoJ1[tamTablero][tamTablero]; // ELIMINARLOS, IR COMPROBANDO DONDE HAYA UN NUMERO PONER UNA ~
-    char tableroJuegoJ2[tamTablero][tamTablero]; // ELIMINARLOS,IR COMPROBANDO DONDE HAYA UN NUMERO PONER UNA ~
     // Arrays colocacion barcos
-	const unsigned short tamBarcos[4] = { 3, 4, 5, 6 };
+    const unsigned short tamBarcos[4] = { 3, 4, 5, 6 };
     const char caracteresBarcos[4] = { '3', '4', '5', '6' };
-    
-    // Caracteres
+
+    // Caracteres a usar
     const char caracterInicial = '~';
-	const char tocado = 'O';
-	const char agua = 'X';
-	const unsigned short barcosAColocar = 4;
+    const char tocado = 'O';
+    const char agua = 'X';
+    const unsigned short barcosAColocar = 4;
 
     // Inicializar los tableros
-    for (int f = 0; f < tamTablero; f++) {
-        for (int c = 0; c < tamTablero; c++) {
+    for (int f = 0; f < tamTablero; f++) 
+    {
+        for (int c = 0; c < tamTablero; c++) 
+        {
             tableroVisibleJ1[f][c] = caracterInicial;
             tableroVisibleJ2[f][c] = caracterInicial;
             tableroControlBarcosJ1[f][c] = false;
             tableroControlBarcosJ2[f][c] = false;
-            tableroJuegoJ1[f][c] = caracterInicial;
-            tableroJuegoJ2[f][c] = caracterInicial;
         }
     }
 
     // Imprimir Tablero del Jugador 1
     std::cout << "Tablero Jugador 1" << std::endl;
-    for (int f = 0; f < tamTablero; f++) {
-        for (int c = 0; c < tamTablero; c++) {
+    for (int f = 0; f < tamTablero; f++) 
+    {
+        for (int c = 0; c < tamTablero; c++) 
+        {
             std::cout << tableroVisibleJ1[f][c] << " ";
         }
+
         std::cout << std::endl;
     }
 
@@ -48,8 +49,10 @@ int main() {
 
     // Imprimir Tablero del Jugador 2
     std::cout << "Tablero Jugador 2" << std::endl;
-    for (int f = 0; f < tamTablero; f++) {
-        for (int c = 0; c < tamTablero; c++) {
+    for (int f = 0; f < tamTablero; f++) 
+    {
+        for (int c = 0; c < tamTablero; c++) 
+        {
             std::cout << tableroVisibleJ2[f][c] << " ";
         }
         std::cout << std::endl;
@@ -65,42 +68,57 @@ int main() {
     system("cls");
 
     // Colocar barcos para el Jugador 1
-    for (int b = 0; b < barcosAColocar; b++) { // Iterar sobre los tamaños de los barcos
+    for (int b = 0; b < barcosAColocar; b++) // Iterando sobre los tamaños de los barcos
+    { 
         bool barcoColocado = false;
-        while (!barcoColocado) {
+        while (!barcoColocado) 
+        {
             bool horizontal = rand() % 2; // 0 = vertical, 1 = horizontal
             unsigned short fila;
             unsigned short columna;
             bool espacioLibre = true;
-            if (horizontal) {
+
+            if (horizontal) 
+            {
                 fila = rand() % tamTablero;
                 columna = rand() % (tamTablero - tamBarcos[b] + 1);
-                for (int i = 0; i < tamBarcos[b]; i++) {
-                    if (tableroControlBarcosJ1[fila][columna + i]) {
+                for (int i = 0; i < tamBarcos[b]; i++) 
+                {
+                    if (tableroControlBarcosJ1[fila][columna + i]) 
+                    {
                         espacioLibre = false;
                         break;
                     }
                 }
+
                 if (espacioLibre) {
-                    for (int i = 0; i < tamBarcos[b]; i++) {
+                    for (int i = 0; i < tamBarcos[b]; i++) 
+                    {
                         tableroVisibleJ1[fila][columna + i] = caracteresBarcos[b];
                         tableroControlBarcosJ1[fila][columna + i] = true;
                     }
                     barcoColocado = true;
                 }
             }
-            else {
+
+            else 
+            {
                 fila = rand() % (tamTablero - tamBarcos[b] + 1);
                 columna = rand() % tamTablero;
-                for (int i = 0; i < tamBarcos[b]; i++) {
-                    if (tableroControlBarcosJ1[fila + i][columna]) {
+
+                for (int i = 0; i < tamBarcos[b]; i++) 
+                {
+                    if (tableroControlBarcosJ1[fila + i][columna]) 
+                    {
                         espacioLibre = false;
                         break;
                     }
                 }
+
                 if (espacioLibre) {
-                    for (int i = 0; i < tamBarcos[b]; i++) {
-                        tableroVisibleJ1[fila + i][columna] = caracteresBarcos[b];
+                    for (int i = 0; i < tamBarcos[b]; i++) 
+                    {
+                        tableroVisibleJ1[fila+i][columna] = caracteresBarcos[b];
                         tableroControlBarcosJ1[fila + i][columna] = true;
                     }
                     barcoColocado = true;
@@ -110,40 +128,57 @@ int main() {
     }
 
     // Colocar barcos para el Jugador 2
-    for (int b = 0; b < barcosAColocar; b++) { // Iterar sobre los tamaños de los barcos
+    for (int b = 0; b < barcosAColocar; b++) // Iterando sobre los tamaños de los barcos
+    { 
         bool barcoColocado = false;
-        while (!barcoColocado) {
+
+        while (!barcoColocado) 
+        {
             bool horizontal = rand() % 2; // 0 = vertical, 1 = horizontal
             unsigned short fila, columna;
             bool espacioLibre = true;
-            if (horizontal) {
+
+            if (horizontal) 
+            {
                 fila = rand() % tamTablero;
                 columna = rand() % (tamTablero - tamBarcos[b] + 1);
+
                 for (int i = 0; i < tamBarcos[b]; i++) {
-                    if (tableroControlBarcosJ2[fila][columna + i]) {
+                    if (tableroControlBarcosJ2[fila][columna + i]) 
+                    {
                         espacioLibre = false;
                         break;
                     }
                 }
+
                 if (espacioLibre) {
-                    for (int i = 0; i < tamBarcos[b]; i++) {
+                    for (int i = 0; i < tamBarcos[b]; i++) 
+                    {
                         tableroVisibleJ2[fila][columna + i] = caracteresBarcos[b];
                         tableroControlBarcosJ2[fila][columna + i] = true;
                     }
                     barcoColocado = true;
                 }
             }
-            else {
+
+            else 
+            {
                 fila = rand() % (tamTablero - tamBarcos[b] + 1);
                 columna = rand() % tamTablero;
-                for (int i = 0; i < tamBarcos[b]; i++) {
-                    if (tableroControlBarcosJ2[fila + i][columna]) {
+
+                for (int i = 0; i < tamBarcos[b]; i++) 
+                {
+                    if (tableroControlBarcosJ2[fila + i][columna]) 
+                    {
                         espacioLibre = false;
                         break;
                     }
                 }
-                if (espacioLibre) {
-                    for (int i = 0; i < tamBarcos[b]; i++) {
+
+                if (espacioLibre) 
+                {
+                    for (int i = 0; i < tamBarcos[b]; i++) 
+                    {
                         tableroVisibleJ2[fila + i][columna] = caracteresBarcos[b];
                         tableroControlBarcosJ2[fila + i][columna] = true;
                     }
@@ -152,14 +187,14 @@ int main() {
             }
         }
     }
-    
-
-    bool tablerosImpresos = false;
 
     // Imprimir Tablero del Jugador 1
     std::cout << "Tablero Jugador 1" << std::endl;
-    for (int f = 0; f < tamTablero; f++) {
-        for (int c = 0; c < tamTablero; c++) {
+
+    for (int f = 0; f < tamTablero; f++) 
+    {
+        for (int c = 0; c < tamTablero; c++) 
+        {
             std::cout << tableroVisibleJ1[f][c] << " ";
         }
         std::cout << std::endl;
@@ -169,8 +204,11 @@ int main() {
 
     // Imprimir Tablero del Jugador 2
     std::cout << "Tablero Jugador 2" << std::endl;
-    for (int f = 0; f < tamTablero; f++) {
-        for (int c = 0; c < tamTablero; c++) {
+
+    for (int f = 0; f < tamTablero; f++) 
+    {
+        for (int c = 0; c < tamTablero; c++) 
+        {
             std::cout << tableroVisibleJ2[f][c] << " ";
         }
         std::cout << std::endl;
@@ -181,10 +219,19 @@ int main() {
     system("cls");
     bool juegoActivo = true;
 
+    // Reiniciamos los tableros para que muestren las olas y no la posicion de los barcos
+    for (int f = 0; f < tamTablero; f++) 
+    {
+        for (int c = 0; c < tamTablero; c++) 
+        {
+            tableroVisibleJ1[f][c] = caracterInicial;
+            tableroVisibleJ2[f][c] = caracterInicial;
+        }
+    }
+
+    // Juego
     while (juegoActivo)
     {
-        // Juego
-
         // Turno del Jugador 1
         std::cout << "\n" << "Turno del Jugador 1" << std::endl;
 
@@ -204,52 +251,66 @@ int main() {
             disparoFila--;
             disparoColumna--;
 
+            // Comprobar si el disparo es válido
             if (disparoFila >= 0 && disparoFila < tamTablero && disparoColumna >= 0 && disparoColumna < tamTablero)
             {
                 if (tableroControlBarcosJ2[disparoFila][disparoColumna])
                 {
                     std::cout << "\n" << "TOCADO!" << std::endl;
-                    tableroJuegoJ2[disparoFila][disparoColumna] = tocado;
+                    tableroVisibleJ2[disparoFila][disparoColumna] = tocado;
                     tableroControlBarcosJ2[disparoFila][disparoColumna] = false;
                 }
+
                 else
                 {
                     std::cout << "\n" << "AGUA!" << std::endl;
-                    tableroJuegoJ2[disparoFila][disparoColumna] = agua;
+                    tableroVisibleJ2[disparoFila][disparoColumna] = agua;
                 }
                 disparoValido = true;
                 turno = true;
 
             }
+
+            // Si el disparo no es válido, avisar al jugador.
             else
             {
                 std::cout << "\n\n\n" << "DISPARO FUERA DEL RANGO DEL TABLERO ESTABLECIDO!" << std::endl << "\n\n\n";
+                std::chrono::seconds(5);
+                system("cls");
             }
         }
 
-        // Imprimir Tablero del Jugador 2 para ver si el juagador 1 ha tocado algun barco del jugador 2 
+        // Imprimir Tablero del Jugador 2 para ver si el juagador 1 ha tocado algun barco del jugador 2
+        system("cls");
         std::cout << "\n" << "Tablero Jugador 2" << std::endl;
-        for (int f = 0; f < tamTablero; f++) {
-            for (int c = 0; c < tamTablero; c++) {
-                std::cout << tableroJuegoJ2[f][c] << " ";
+
+        for (int f = 0; f < tamTablero; f++) 
+        {
+            for (int c = 0; c < tamTablero; c++) 
+            {
+                std::cout << tableroVisibleJ2[f][c] << " ";
             }
             std::cout << std::endl;
         }
 
-		// Comprobar si el Jugador 2 ha perdido sumando todos los valores del tablero de control de barcos del jugador 2
-        int sumaJ2 = true;
+        // Comprobar si el Jugador 2 ha perdido sumando todos los valores del tablero de control de barcos del jugador 2, ya que son booleanos (1/0), si todos sumados suman 0 querrá decir que el jugador ha perdido
+        int sumaJ2 = 0;
         bool J2HaPerdido = true;
-        for (int f = 0; f < tamTablero; f++) {
-            for (int c = 0; c < tamTablero; c++) {
+
+        for (int f = 0; f < tamTablero; f++) 
+        {
+            for (int c = 0; c < tamTablero; c++) 
+            {
                 if (tableroControlBarcosJ2[f][c] == true)
                 {
-                    sumaJ2 += tableroControlBarcosJ1[f][c];
+                    sumaJ2++;
 
                     if (sumaJ2 == 0)
                     {
                         J2HaPerdido = true;
                         break;
                     }
+
                     else
                     {
                         J2HaPerdido = false;
@@ -262,12 +323,11 @@ int main() {
                     }
 
                 }
-            }     
-         
+            }
         }
 
         if (J2HaPerdido)  //GAME OVER
-        {    
+        {
             system("cls");
             std::cout << "JUGADOR 1 GANADOR";
             juegoActivo = false;
@@ -293,22 +353,25 @@ int main() {
             disparoFila--;
             disparoColumna--;
 
+            // Comprobar si el disparo es válido
             if (disparoFila >= 0 && disparoFila < tamTablero && disparoColumna >= 0 && disparoColumna < tamTablero)
             {
                 if (tableroControlBarcosJ1[disparoFila][disparoColumna])
                 {
                     std::cout << "\n" << "TOCADO!" << std::endl;
-                    tableroJuegoJ1[disparoFila][disparoColumna] = tocado;
+                    tableroVisibleJ1[disparoFila][disparoColumna] = tocado;
                     tableroControlBarcosJ1[disparoFila][disparoColumna] = false;
                 }
+
                 else
                 {
                     std::cout << "\n" << "AGUA!" << std::endl;
-                    tableroJuegoJ1[disparoFila][disparoColumna] = agua;
+                    tableroVisibleJ1[disparoFila][disparoColumna] = agua;
                 }
                 disparoValido = true;
                 turno = false;
             }
+            // Si el disparo no es válido, avisar al jugador.
             else
             {
                 std::cout << "\n\n\n" << "DISPARO FUERA DEL RANGO DEL TABLERO ESTABLECIDO!" << std::endl << "\n\n\n";
@@ -316,32 +379,39 @@ int main() {
         }
 
         // Imprimir Tablero del Jugador 1 para ver si el juagador 2 ha tocado algun barco del jugador 1
+        system("cls");
         std::cout << "\n" << "Tablero Jugador 1" << std::endl;
-        for (int f = 0; f < tamTablero; f++) {
-            for (int c = 0; c < tamTablero; c++) {
-                std::cout << tableroJuegoJ1[f][c] << " ";
+        for (int f = 0; f < tamTablero; f++) 
+        {
+            for (int c = 0; c < tamTablero; c++) 
+            {
+                std::cout << tableroVisibleJ1[f][c] << " ";
             }
             std::cout << std::endl;
 
         }
 
-		// Comprobar si el Jugador 1 ha perdido sumando todos los valores del tablero de control de barcos del jugador 1
-        int sumaJ1 = true;
-		bool J1HaPerdido = false;
-        for (int f = 0; f < tamTablero; f++) {
-            for (int c = 0; c < tamTablero; c++) {
-                if (tableroControlBarcosJ1[f][c] == true) 
+        // Comprobar si el Jugador 1 ha perdido sumando todos los valores del tablero de control de barcos del jugador 1, ya que son booleanos (1/0), si todos sumados suman 0 querrá decir que el jugador ha perdido
+        int sumaJ1 = 0;
+        bool J1HaPerdido = false;
+
+        for (int f = 0; f < tamTablero; f++) 
+        {
+            for (int c = 0; c < tamTablero; c++) 
+            {
+                if (tableroControlBarcosJ1[f][c] == true)
                 {
-					sumaJ1 += tableroControlBarcosJ1[f][c];
+                    sumaJ1++;
 
                     if (sumaJ1 == 0)
                     {
-						J1HaPerdido = true;
+                        J1HaPerdido = true;
                         break;
                     }
+
                     else
                     {
-						J1HaPerdido = false;
+                        J1HaPerdido = false;
                     }
 
                     if (!J1HaPerdido) {
@@ -349,16 +419,12 @@ int main() {
                         disparoValido = false;
                         break;
                     }
-
                 }
             }
-
-    
-            
         }
 
         if (J1HaPerdido) //GAME OVER 
-        {                    
+        {
             system("cls");
             std::cout << "JUGADOR 2 GANADOR";
             juegoActivo = false;
