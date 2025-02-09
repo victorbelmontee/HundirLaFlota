@@ -82,6 +82,8 @@ int main() {
             {
                 fila = rand() % tamTablero;
                 columna = rand() % (tamTablero - tamBarcos[b] + 1); // Con el +1 nos aseguramos que el barco cabe horizontalmente
+
+                // Verificar si hay espacio libre para colocar el barco horizontalmente
                 for (int i = 0; i < tamBarcos[b]; i++) 
                 {
                     if (tableroControlBarcosJ1[fila][columna + i]) 
@@ -91,6 +93,7 @@ int main() {
                     }
                 }
 
+                // Si hay espacio libre, colocar el barco en el tablero
                 if (espacioLibre) {
                     for (int i = 0; i < tamBarcos[b]; i++) 
                     {
@@ -106,6 +109,7 @@ int main() {
                 fila = rand() % (tamTablero - tamBarcos[b] + 1); // Con el +1 nos aseguramos que el barco cabe verticalmente
                 columna = rand() % tamTablero;
 
+                // Verificar si hay espacio libre para colocar el barco verticalmente
                 for (int i = 0; i < tamBarcos[b]; i++) 
                 {
                     if (tableroControlBarcosJ1[fila + i][columna]) 
@@ -115,6 +119,7 @@ int main() {
                     }
                 }
 
+                // Si hay espacio libre, colocar el barco en el tablero
                 if (espacioLibre) {
                     for (int i = 0; i < tamBarcos[b]; i++) 
                     {
@@ -142,7 +147,7 @@ int main() {
             {
                 fila = rand() % tamTablero;
                 columna = rand() % (tamTablero - tamBarcos[b] + 1); // Con el +1 nos aseguramos que el barco cabe horizontalmente
-
+                // Verificar si hay espacio libre para colocar el barco horizontalmente
                 for (int i = 0; i < tamBarcos[b]; i++) {
                     if (tableroControlBarcosJ2[fila][columna + i]) 
                     {
@@ -151,6 +156,7 @@ int main() {
                     }
                 }
 
+                // Si hay espacio libre, colocar el barco en el tablero
                 if (espacioLibre) {
                     for (int i = 0; i < tamBarcos[b]; i++) 
                     {
@@ -166,6 +172,7 @@ int main() {
                 fila = rand() % (tamTablero - tamBarcos[b] + 1); // Con el +1 nos aseguramos que el barco cabe verticalmente
                 columna = rand() % tamTablero;
 
+                // Verificar si hay espacio libre para colocar el barco verticalmente
                 for (int i = 0; i < tamBarcos[b]; i++) 
                 {
                     if (tableroControlBarcosJ2[fila + i][columna]) 
@@ -175,6 +182,7 @@ int main() {
                     }
                 }
 
+                // Si hay espacio libre, colocar el barco en el tablero
                 if (espacioLibre) 
                 {
                     for (int i = 0; i < tamBarcos[b]; i++) 
